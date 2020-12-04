@@ -1,0 +1,12 @@
+.card-container{
+    padding: .5rem;
+    border-bottom: 1px solid black;
+}
+
+.card-name{
+    font-weight: bold;
+}
+
+.card-profile{
+    font-weight: bold;
+}
