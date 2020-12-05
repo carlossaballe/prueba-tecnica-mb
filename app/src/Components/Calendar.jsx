@@ -8,16 +8,8 @@ export default function Calendar({ year, month }) {
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
     const days = [...Array(firstDayOfMonth).fill(null), ...[...Array(daysInMonth).keys()].map(i => ({ day: i + 1 }))];
 
-    const [events, setEvents] = useState( [
-        // {
-        //     title: "first event of the month",
-        //     date: {
-        //         datetime: "UTC DATE STRING",
-        //         month: 7,
-        //         day: 15,
-        //     },
-        // },
-    ])
+    const [events, setEvents] = useState([]);
+    const [toSave, setToSave] = useState([]);
 
     for (let i = 0; i < events.length; i++) {
 
@@ -34,25 +26,46 @@ export default function Calendar({ year, month }) {
     const _dragLeave = (e) => e.preventDefault();
 
     const _drop = (e, $day) => {
+        
+        e.preventDefault();
 
         if ($day) {
 
-            e.preventDefault();
-            let data = e.dataTransfer.getData('text');
-            // let div = document.createElement('div');
-            // div.innerHTML = data;
-            // e.target.appendChild(div);
-    
+            const info = e.dataTransfer.getData('text').split('*');
+            const data = info[0];
+            const userId = info[1];
+
+            for (let i = 0; i < events.length; i++) {
+
+                if (events[i].title === data && events[i].date.day === parseInt($day) && events[i].date.month === parseInt(month)) {
+                    return alert(`${data} ya está programado para esta fecha`)
+                };
+            }
+            
             setEvents(events.concat([{
                 title: data,
                 date: {
                     datetime: "UTC DATE STRING",
                     month: parseInt(month),
                     day: parseInt($day),
-                },
-            }]))
+                }
+            }]));
 
+            setToSave(toSave.concat([{
+                idus: parseInt(userId),
+                fecha: new Date(year, month-1, $day).toISOString().substring(0,10)
+            }]))
         }
+    }
+
+    const _saveScheduled = () => {
+
+        fetch("http://test.movilbox.co:888/test_mbox/test.php?metodo=guardar", {
+            method: 'POST', 
+            body: JSON.stringify(toSave),
+        })
+        .then(res => res.json())
+        .then(response => console.log(response))
 
     }
 
@@ -77,7 +90,7 @@ export default function Calendar({ year, month }) {
                             const scheduled = day && day.events ?
                             day.events.map((e, i) => (
                                 <div key={i} className="event"> {e.title} </div>
-                            )) : <div key={i} className="empty"> Sin programación </div>
+                            )) : <div key={i} className="empty"> Sin programaciones </div>
 
                             return (
                                 <div key={i} className={ day ? 'calendar-individual-day' : 'no-day'}>
@@ -95,6 +108,9 @@ export default function Calendar({ year, month }) {
                             )
                         })
                     }
+                </div>
+                <div className='button-container'>
+                    <button className='save-button' onClick={()=>_saveScheduled()}>Guardar</button>
                 </div>
             </div>
         </div>

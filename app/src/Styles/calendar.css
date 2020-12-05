@@ -21,7 +21,7 @@
 }
 
 .event {
-    color: blue;
+    color: black;
     padding: 0.2em;
     font-size: 70%;
 }
@@ -47,7 +47,7 @@
     border: 2px solid #ddd;
     margin-left: -1px;
     margin-bottom: -1px;
-    padding: .5em;
+    padding: .5em .5em 0 .5em;
     background-color: white;
     font-weight: bolder;
     color: rgb(130, 130, 130);
@@ -68,9 +68,26 @@
 
 .data-container{
     font-size: 70%;
-    height: 70%;
+    height: 75%;
 }
 
 .number-container{
     text-align: end;
+}
+
+.button-container{
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.save-button{
+    align-self: center;
+    width: 20%;
+    height: 2rem;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-weight: bold;
+    background-color: rgb(80, 210, 149);
 }

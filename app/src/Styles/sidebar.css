@@ -3,7 +3,7 @@
     padding: 1rem;
     border-radius: .5rem;
     background-color: white;
-    max-height: min-content;
+    max-height: 100%;
 }
 
 .sidebar-search-title{

@@ -18,7 +18,7 @@ export default function Sidebar() {
 
     }, []);
     
-    const handleInputChange = (event) => {
+    const _handleInputChange = (event) => {
         setInput({
             ...input,
             [event.target.name]: event.target.value
@@ -31,14 +31,14 @@ export default function Sidebar() {
         <div className='main-container'>
 
             <Form>
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group>
                     <Form.Text className="sidebar-search-title">Buscar</Form.Text>
                     <Form.Control
                         type="text"
                         name="searchInput"
-                        onChange={(event) => handleInputChange(event)}
+                        onChange={(event) => _handleInputChange(event)}
                     />
-                    <Form.Text className="text-muted">
+                    <Form.Text >
                         Escribe el nombre que deseas buscar.
                     </Form.Text>
                 </Form.Group>

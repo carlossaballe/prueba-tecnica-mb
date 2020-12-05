@@ -1,8 +1,14 @@
 body{
-  border-top: 1rem solid rgb(148, 215, 208);
+  border-top: 2px solid rgba(80, 210, 149, 0.591);
   padding-top: 1rem;
   background-color: rgb(240, 240, 240);
+
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .app-container{
   display: grid;
   grid-template-columns: 25% 75%;

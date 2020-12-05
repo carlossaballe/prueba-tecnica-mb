@@ -9,10 +9,11 @@ export default function Card({ id, name, profile, planDays, planStores }) {
 
     const _dragStart = (e) => {
         const _name = document.getElementById(id).innerHTML;
-        e.dataTransfer.setData('text', _name);
+        const info = _name + '*' + id
+        e.dataTransfer.setData('text', info);
     }
 
-    const setColor = (id) => {
+    const _setColor = (id) => {
         let color= 'rgb(' + id*2 + ',' + id + ',' + id/4 + ')';
 
         return color;
@@ -26,7 +27,7 @@ export default function Card({ id, name, profile, planDays, planStores }) {
                 <div className='card-detail'>Dias planificados: {planDays}</div>
                 <div className='card-detail'>Tiendas planificadas: {planStores}</div>
             </div>
-            <div className='card-color' style={{background: setColor(id)}}></div>
+            <div className='card-color' style={{background: _setColor(id)}}></div>
         </div>
     )
 }
