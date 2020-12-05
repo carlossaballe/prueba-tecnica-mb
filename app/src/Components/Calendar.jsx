@@ -1,15 +1,6 @@
 //import React, { useEffect, useState } from 'react';
 import '../Styles/calendar.css'
 
-
-//         fetch("http://test.movilbox.co:888/test_mbox/test.php?metodo=periodos")
-//             .then(response => response.json())
-//             .then(data => {
-//                 console.log(data);
-//                 setMonths(data)
-//             });
-//     }, []);
-
 const events = [
     {
         title: "This here is the first event of the month",
@@ -46,7 +37,8 @@ const events = [
 ]
 
 export default function Calendar({ year, month }) {
-    const date = new Date(year, month - 1, 1, 0, 0, 0, 0);
+
+    const date = new Date(year, month-1, 1, 0, 0, 0, 0);
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
     const days = [...Array(firstDayOfMonth).fill(null), ...[...Array(daysInMonth).keys()].map(i => ({ day: i + 1 }))];
@@ -87,7 +79,6 @@ export default function Calendar({ year, month }) {
     return (
         <div className="calendar-container">
 
-            <div>Titulo</div>
             <div >
                 <div className="calendar-header">
                     <div>Domingo</div>

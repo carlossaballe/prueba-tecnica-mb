@@ -7,3 +7,27 @@ body{
   display: grid;
   grid-template-columns: 25% 75%;
 }
+
+.select-date{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.modify-date{
+  cursor: pointer;
+  border: 1px solid #ddd;
+  font-weight: bolder;
+  color: #ddd;
+  background-color: white;
+  border-radius: 15%;
+}
+
+.info-date{
+  margin: 0 1rem 0 1rem;
+  color: rgb(150, 150, 150);
+  font-weight: bolder;
+}
