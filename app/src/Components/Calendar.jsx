@@ -1,79 +1,59 @@
-//import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../Styles/calendar.css'
-
-const events = [
-    {
-        title: "This here is the first event of the month",
-        date: {
-            datetime: "UTC DATE STRING",
-            month: 1,
-            day: 15,
-        },
-    },
-    {
-        title: "Here's one for February",
-        date: {
-            datetime: "UTC DATE STRING",
-            month: 2,
-            day: 8,
-        },
-    },
-    {
-        title: "A new event",
-        date: {
-            datetime: "UTC DATE STRING",
-            month: 1,
-            day: 31,
-        },
-    },
-    {
-        title: "Another event",
-        date: {
-            datetime: "UTC DATE STRING",
-            month: 1,
-            day: 31,
-        },
-    },
-]
 
 export default function Calendar({ year, month }) {
 
-    const date = new Date(year, month-1, 1, 0, 0, 0, 0);
+    const date = new Date(year, month - 1, 1, 0, 0, 0, 0);
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
     const days = [...Array(firstDayOfMonth).fill(null), ...[...Array(daysInMonth).keys()].map(i => ({ day: i + 1 }))];
+
+    const [events, setEvents] = useState( [
+        // {
+        //     title: "first event of the month",
+        //     date: {
+        //         datetime: "UTC DATE STRING",
+        //         month: 7,
+        //         day: 15,
+        //     },
+        // },
+    ])
 
     for (let i = 0; i < events.length; i++) {
 
         const event = events[i]
         const eventDay = days[event.date.day + firstDayOfMonth - 1];
 
-        if (event.date.month !== parseInt(month)) {
-            continue
+        if (event.date.month !== parseInt(month)) continue;
+        if (!Array.isArray(eventDay.events)) eventDay.events = [];
+
+        eventDay.events.push(event);
+    }
+
+    const _dragOver  = (e) => e.preventDefault();
+    const _dragLeave = (e) => e.preventDefault();
+
+    const _drop = (e, $day) => {
+
+        if ($day) {
+
+            e.preventDefault();
+            let data = e.dataTransfer.getData('text');
+            // let div = document.createElement('div');
+            // div.innerHTML = data;
+            // e.target.appendChild(div);
+    
+            setEvents(events.concat([{
+                title: data,
+                date: {
+                    datetime: "UTC DATE STRING",
+                    month: parseInt(month),
+                    day: parseInt($day),
+                },
+            }]))
+
         }
 
-        if (!Array.isArray(eventDay.events)) {
-            eventDay.events = []
-        }
-
-        eventDay.events.push(event)
-    }
-
-    const _dragOver = (e) => {
-        e.preventDefault();
-    }
-
-    const _dragLeave = (e) => {
-        e.preventDefault();
-    }
-
-    const _drop = (e) => {
-        e.preventDefault();
-        let data = e.dataTransfer.getData('text');
-        var z = document.createElement('div'); // is a node
-        z.innerHTML = data;
-        e.target.appendChild(z)
-        console.log(e.target);
     }
 
     return (
@@ -93,19 +73,20 @@ export default function Calendar({ year, month }) {
                 <div className="calendar-body">
                     {
                         days.map((day, i) => {
-                            // const events = day && day.events ? day.events.map((e, i) => (
-                            //     <div key={i} className="event">
-                            //         {e.title}
-                            //     </div>
-                            // )) : 
-                            //     <div key={i} className="empty">
-                            //         Sin programación
-                            //     </div>
+
+                            const scheduled = day && day.events ?
+                            day.events.map((e, i) => (
+                                <div key={i} className="event"> {e.title} </div>
+                            )) : <div key={i} className="empty"> Sin programación </div>
 
                             return (
-                                <div key={i} className="calendar-individual-day">
-                                    <div className='data-container' onDragOver={(e) => _dragOver(e)} onDragLeave={(e) => _dragLeave(e)} onDrop={(e) => _drop(e)}>
-
+                                <div key={i} className={ day ? 'calendar-individual-day' : 'no-day'}>
+                                    <div 
+                                        className='data-container' 
+                                        onDragOver={(e) => _dragOver(e)} 
+                                        onDragLeave={(e) => _dragLeave(e)} 
+                                        onDrop={(e) => _drop(e, day && day.day)}>
+                                        {scheduled}
                                     </div>
                                     <div className='number-container'>
                                         {day ? day.day : ''}

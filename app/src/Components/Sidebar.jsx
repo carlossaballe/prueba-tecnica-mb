@@ -1,31 +1,55 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
+import { Form } from 'react-bootstrap';
 import '../Styles/sidebar.css';
 
 export default function Sidebar() {
 
     const [users, setUsers] = useState([]);
+    const [input, setInput] = useState({ searchInput: "" });
 
     useEffect(() => {
-        
+
         fetch("http://test.movilbox.co:888/test_mbox/test.php?metodo=usuarios")
-        .then(response => response.json())
-        .then(data => {
-            setUsers(data)
-        });
+            .then(response => response.json())
+            .then(data => {
+                setUsers(data)
+            });
 
     }, []);
+    
+    const handleInputChange = (event) => {
+        setInput({
+            ...input,
+            [event.target.name]: event.target.value
+        });
+    }
+
+    const showedUsers = users.filter(user => user.nombre.toLowerCase().includes(input.searchInput.toLowerCase()))
 
     return (
         <div className='main-container'>
-            <div>Buscar</div>
+
+            <Form>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Text className="sidebar-search-title">Buscar</Form.Text>
+                    <Form.Control
+                        type="text"
+                        name="searchInput"
+                        onChange={(event) => handleInputChange(event)}
+                    />
+                    <Form.Text className="text-muted">
+                        Escribe el nombre que deseas buscar.
+                    </Form.Text>
+                </Form.Group>
+            </Form>
             {
-                users.map((user, i) =>
-                    <Card 
+                showedUsers.map((user, i) =>
+                    <Card
                         key={i}
                         id={user.idus}
                         name={user.nombre}
-                        profile={user.perfil} 
+                        profile={user.perfil}
                         planDays={user.dias_plani}
                         planStores={user.tiendas_plani}
                     />

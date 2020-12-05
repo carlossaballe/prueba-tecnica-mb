@@ -15,12 +15,13 @@
     font-weight: bold;
     font-size: 90%;
 }
+
 .card-detail{
     font-size: 70%;
 }
 
 .card-color{
-    background-color: rgba(0, 255, 187, 0.365);
+    
     width: 2rem;
     max-width: 10%;
 }

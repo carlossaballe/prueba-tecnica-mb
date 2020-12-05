@@ -5,3 +5,10 @@
     background-color: white;
     max-height: min-content;
 }
+
+.sidebar-search-title{
+    color: rgb(132, 132, 132);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: .5rem;
+}

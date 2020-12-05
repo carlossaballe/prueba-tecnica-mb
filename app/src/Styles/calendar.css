@@ -6,10 +6,12 @@
 .calendar-header {
     width: 100%;
     display: flex;
+    padding-right: .2rem;
 }
 
 .calendar-header div {
-    flex: 1 1 14.338%;
+    flex-direction: row;
+    width: 14.338%;
     text-align: center;
     font-weight: bold;
     color: #fff;
@@ -20,13 +22,12 @@
 
 .event {
     color: blue;
-    padding: 0.25em;
+    padding: 0.2em;
     font-size: 70%;
-    height: 80%;
 }
 
 .empty{
-    color: rgb(199, 199, 199);
+    color: rgb(179, 179, 179);
     padding: 0.25em;
     font-size: 70%;
     height: 80%;
@@ -38,15 +39,6 @@
     display: flex;
     flex-wrap: wrap;
 }
-
-/* .calendar-body div {
-    flex: 1 1 14.349%;
-    min-height: 8em;
-    border: 2px solid #ddd;
-    margin-left: -1px;
-    margin-bottom: -1px;
-    padding: .5em;
-} */
 
 .calendar-individual-day{
     flex: 1 1 14.349%;
@@ -61,9 +53,21 @@
     color: rgb(130, 130, 130);
 }
 
+.no-day{
+    flex: 1 1 14.349%;
+    max-width: 14.349%;
+    height: 7em;
+    border: 2px solid #ddd;
+    margin-left: -1px;
+    margin-bottom: -1px;
+    padding: .5em;
+    background-color: rgb(238, 238, 238);
+    font-weight: bolder;
+    color: rgb(130, 130, 130);
+}
+
 .data-container{
     font-size: 70%;
-    background-color: white;
     height: 70%;
 }
 
