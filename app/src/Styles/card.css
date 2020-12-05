@@ -1,12 +1,31 @@
 .card-container{
-    padding: .5rem;
-    border-bottom: 1px solid black;
+    cursor: move;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 2px solid #ddd;
 }
 
 .card-name{
     font-weight: bold;
+    font-size: 90%;
 }
 
 .card-profile{
     font-weight: bold;
+    font-size: 90%;
+}
+.card-detail{
+    font-size: 70%;
+}
+
+.card-color{
+    background-color: rgba(0, 255, 187, 0.365);
+    width: 2rem;
+    max-width: 10%;
+}
+
+.card-data{
+    padding: .5rem;
+    max-width: 90%;
 }

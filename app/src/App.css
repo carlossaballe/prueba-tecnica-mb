@@ -1,4 +1,9 @@
+body{
+  border-top: 1rem solid rgb(148, 215, 208);
+  padding-top: 1rem;
+  background-color: rgb(240, 240, 240);
+}
 .app-container{
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 25% 75%;
 }

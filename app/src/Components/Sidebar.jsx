@@ -11,7 +11,6 @@ export default function Sidebar() {
         fetch("http://test.movilbox.co:888/test_mbox/test.php?metodo=usuarios")
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             setUsers(data)
         });
 
@@ -19,7 +18,7 @@ export default function Sidebar() {
 
     return (
         <div className='main-container'>
-
+            <div>Buscar</div>
             {
                 users.map((user, i) =>
                     <Card 

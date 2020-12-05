@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className='app-container'>
       <Sidebar/>
-      <Calendar/>
+      <Calendar year={2020} month={2}/>
     </div>
   );
 }
