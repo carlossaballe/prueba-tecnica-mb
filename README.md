@@ -2,4 +2,4 @@
 
 Demo en vivo:
 
-https://github.com/carlossaballe/prueba-tecnica-mb
+http://scheduler-app-carlossaballe.herokuapp.com/
