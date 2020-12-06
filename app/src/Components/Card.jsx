@@ -27,13 +27,6 @@ export default function Card({ id, name, profile, planDays, planStores }) {
         return "#" + coolor;
     }
 
-    // const _setColor = (id) => {
-
-    //     id = parseInt(id, 16)
-    //     let color= 'rgb(' + Math.floor(id/5) + ',' + id/10 + ',' + id/5 + ')';
-    //     return color;
-    // }
-
     return (
         <div className='card-container' draggable={true} onDragStart={(e) => _dragStart(e)}>
             <div className='card-data'>
