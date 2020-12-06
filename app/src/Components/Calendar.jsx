@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import '../Styles/calendar.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faCalendar, faEraser, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import '../Styles/calendar.css';
 
 export default function Calendar({ year, month }) {
 
@@ -10,6 +12,7 @@ export default function Calendar({ year, month }) {
 
     const [events, setEvents] = useState([]);
     const [toSave, setToSave] = useState([]);
+    const contextMenu = document.getElementById('custom-cm');
 
     for (let i = 0; i < events.length; i++) {
 
@@ -65,12 +68,34 @@ export default function Calendar({ year, month }) {
             body: JSON.stringify(toSave),
         })
         .then(res => res.json())
-        .then(response => console.log(response))
+        .then(response => {    
+            console.log(response);
+            alert('Guardado con éxito')
+        })
 
+    }
+
+    const _showContextMenu = (show = true) =>{
+
+        contextMenu.style.display = show ? 'block' : 'none';
+    }
+
+    const _handleClick = (e) => {
+        e.preventDefault();
+        contextMenu.style.left = e.clientX + 'px';
+        contextMenu.style.top = e.clientY + 'px';
+        _showContextMenu();
     }
 
     return (
         <div className="calendar-container">
+
+                <div id="custom-cm" className="custom-cm">
+                    <div><FontAwesomeIcon icon={faEdit}/> Editar</div>
+                    <div><FontAwesomeIcon icon={faCalendar}/> Reprogramar</div>
+                    <div><FontAwesomeIcon icon={faEraser}/> Eliminar</div>
+                    <div onClick={()=>_showContextMenu(false)}> <FontAwesomeIcon icon={faWindowClose}/> Cerrar</div>
+                </div>
 
             <div >
                 <div className="calendar-header">
@@ -89,7 +114,7 @@ export default function Calendar({ year, month }) {
 
                             const scheduled = day && day.events ?
                             day.events.map((e, i) => (
-                                <div key={i} className="event"> {e.title} </div>
+                                i <= 3 && <div key={i} className="event" onClick={(event)=>_handleClick (event)}>{e.title}</div> 
                             )) : <div key={i} className="empty"> Sin programaciones </div>
 
                             return (
@@ -100,6 +125,7 @@ export default function Calendar({ year, month }) {
                                         onDragLeave={(e) => _dragLeave(e)} 
                                         onDrop={(e) => _drop(e, day && day.day)}>
                                         {scheduled}
+                                        {scheduled.length > 4 && <div>{(scheduled.length)-4} más</div>}
                                     </div>
                                     <div className='number-container'>
                                         {day ? day.day : ''}
@@ -109,6 +135,7 @@ export default function Calendar({ year, month }) {
                         })
                     }
                 </div>
+
                 <div className='button-container'>
                     <button className='save-button' onClick={()=>_saveScheduled()}>Guardar</button>
                 </div>
